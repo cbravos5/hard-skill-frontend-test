@@ -1,9 +1,7 @@
+import { Login } from "./pages/Login";
+
 function App() {
-  return (
-    <div className="App">
-      <h1>H1 TAG HERE</h1>
-    </div>
-  );
+  return <Login />;
 }
 
 export default App;

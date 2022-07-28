@@ -29,6 +29,11 @@ export default createGlobalStyle`
   body {
     min-width: 320px;
     min-height: 100vh;
+    padding: 10px;
     background: ${(props) => props.theme.background};
+
+    display: grid;
+    justify-items: center;
+    align-items: center;
   }
 `;
