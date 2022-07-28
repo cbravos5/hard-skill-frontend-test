@@ -1,19 +1,10 @@
+import { ButtonHTMLAttributes } from "react";
 import { GlassButtonStyle } from "./style";
 
-interface Props {
-  type?: "button" | "submit" | "reset";
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  className?: string;
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
 }
 
-export const GlassButton: React.FC<Props> = ({
-  type,
-  onClick,
-  label,
-  className,
-}) => (
-  <GlassButtonStyle type={type} onClick={onClick} className={className}>
-    {label}
-  </GlassButtonStyle>
+export const GlassButton: React.FC<Props> = ({ label, ...rest }) => (
+  <GlassButtonStyle {...rest}>{label}</GlassButtonStyle>
 );
