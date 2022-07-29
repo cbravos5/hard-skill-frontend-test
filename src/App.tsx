@@ -1,10 +1,10 @@
 import { Login } from "./pages/Login";
 import { ThemeProvider } from "styled-components";
 import GlobalCSS from "./global.css";
-import { defaultTheme } from "./theme";
 import { ToastContainer } from "react-toastify";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-import { AuthContext, useAuthContext } from "./contexts/Auth";
+import { useAuthContext } from "./contexts/Auth";
+import { defaultTheme } from "./GlobalStyle/theme";
 
 interface ProtectedProps {
   isAuth: boolean;
