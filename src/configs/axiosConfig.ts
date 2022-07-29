@@ -6,3 +6,11 @@ export const AxiosInstance = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+AxiosInstance.interceptors.request.use((request) => {
+  request.headers = {
+    ...request.headers,
+    Authorization: sessionStorage.getItem("Authorization") || "",
+  };
+  return request;
+});

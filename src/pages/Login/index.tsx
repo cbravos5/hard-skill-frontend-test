@@ -38,8 +38,7 @@ export const Login: React.FC = () => {
       console.log(response);
 
       if (response.status === 200) {
-        console.log("salve");
-
+        sessionStorage.setItem("Authorization", response.data.Authorization);
         setAuth(true);
         navigate("/home");
       }
