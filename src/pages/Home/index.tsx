@@ -1,20 +1,19 @@
 import LeadSoftLogo from "@/assets/leadsoft_logotipo.svg";
+import { FixedNav } from "./style";
 
 export const Home = () => {
   return (
     <>
-      <nav>
-        <div className="user-logout">
-          <img src={LeadSoftLogo} alt="Logotipo LeadSoft" />
-          <button className="add" type="button">
-            incluir
-          </button>
-          <div>
-            <button type="button">ICON HERE</button>
-            <button type="button">logout</button>
-          </div>
+      <FixedNav>
+        <img src={LeadSoftLogo} alt="Logotipo LeadSoft" />
+        <div className="add">
+          <button type="button">incluir</button>
         </div>
-      </nav>
+        <div className="user-logout">
+          <button type="button">ICON HERE</button>
+          <button type="button">logout</button>
+        </div>
+      </FixedNav>
       <main>
         <section className="people-tiles">
           <div>
