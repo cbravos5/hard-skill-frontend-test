@@ -7,7 +7,7 @@ import { GlassButton } from "@/components/GlassButton";
 import { Input } from "@/components/Input";
 import { toast } from "react-toastify";
 import { useAuthContext } from "@/contexts/Auth";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface FormData {
   username: string;

@@ -1,10 +1,11 @@
 import { Login } from "./pages/Login";
 import { ThemeProvider } from "styled-components";
-import GlobalCSS from "./global.css";
+import GlobalCSS from "./GlobalStyle/global.css";
 import { ToastContainer } from "react-toastify";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { useAuthContext } from "./contexts/Auth";
 import { defaultTheme } from "./GlobalStyle/theme";
+import { Home } from "./pages/Home";
 
 interface ProtectedProps {
   isAuth: boolean;
@@ -22,7 +23,7 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<ProtectedRoute isAuth={isAuth} />}>
-          <Route path="/home" element={<h1>HOME</h1>} />
+          <Route path="/home" element={<Home />} />
         </Route>
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
