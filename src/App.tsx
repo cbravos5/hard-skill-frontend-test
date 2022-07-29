@@ -24,6 +24,7 @@ export default function App() {
         <Route path="/home" element={<ProtectedRoute isAuth={isAuth} />}>
           <Route path="/home" element={<h1>HOME</h1>} />
         </Route>
+        <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
       <ToastContainer autoClose={2500} style={{ borderRadius: "10px" }} />
     </ThemeProvider>
