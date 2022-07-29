@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { GlassButton } from "@/components/GlassButton";
 import { Input } from "@/components/Input";
 import { toast } from "react-toastify";
+import { useAuthContext } from "@/contexts/Auth";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 interface FormData {
   username: string;
@@ -24,14 +26,23 @@ export const Login: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>();
 
+  const { setAuth } = useAuthContext();
+  const navigate = useNavigate();
+
   const submitHandler = handleSubmit(async ({ username, password }) => {
     try {
       const response = await AxiosInstance.post("/Auth/Login", {
         username,
         password,
       });
+      console.log(response);
 
-      if (response.status === 200) console.log("LOGADO");
+      if (response.status === 200) {
+        console.log("salve");
+
+        setAuth(true);
+        navigate("/home");
+      }
     } catch (error: any) {
       console.log(error.response);
       if (error.response.data) toast.error("Usuário e/ou senha inválidos");
