@@ -18,30 +18,8 @@ export const LoginContainer = styled.main`
     width: 50%;
   }
 
-  form {
-    .input {
-      margin: 10px 0;
-    }
-  }
-
-  input {
-    font-size: 1.275rem;
-    padding: 2px;
-
-    &:focus {
-      box-shadow: 0 0 3px 2px cornflowerblue;
-    }
-  }
-
   .input {
-    width: 70%;
-    * {
-      display: block;
-    }
-    span {
-      color: red;
-      font-size: 0.675rem;
-    }
+    margin: 10px 0;
   }
 
   .submit {

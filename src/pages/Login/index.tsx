@@ -4,6 +4,7 @@ import React from "react";
 import { LoginContainer } from "./style";
 import { useForm } from "react-hook-form";
 import { GlassButton } from "@/components/GlassButton";
+import { Input } from "@/components/Input";
 
 interface FormData {
   username: string;
@@ -19,8 +20,6 @@ export const Login: React.FC = () => {
 
   const submitHandler = handleSubmit(async (data) => {
     console.log(data);
-
-    //AxiosInstance.post("/Auth/Login", {});
   });
 
   return (
@@ -28,22 +27,20 @@ export const Login: React.FC = () => {
       <img src={LeadSoftLogo} alt="Logotipo LeadSoft" />
       <p>Sistema de gerência de pessoas</p>
       <form action="login" onSubmit={submitHandler}>
-        <div className="input">
-          <input
-            type="text"
-            {...register("username", { required: true })}
-            placeholder="Usuário"
-          />
-          {errors.username && <span>Campo obrigatório</span>}
-        </div>
-        <div className="input">
-          <input
-            type="password"
-            {...register("password", { required: true })}
-            placeholder="Senha"
-          />
-          {errors.password && <span>Campo obrigatório</span>}
-        </div>
+        <Input
+          className="input"
+          type="text"
+          placeholder="Usuário"
+          {...register("username", { required: true })}
+          error={errors.username ? true : false}
+        />
+        <Input
+          className="input"
+          type="password"
+          placeholder="Senha"
+          {...register("password", { required: true })}
+          error={errors.password ? true : false}
+        />
         <GlassButton className="submit" type="submit" label="login" />
       </form>
     </LoginContainer>
