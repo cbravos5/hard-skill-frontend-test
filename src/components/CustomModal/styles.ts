@@ -26,4 +26,9 @@ export const Container = styled.div`
   height: 50%;
 
   color: rgba(0, 0, 139, 0.7);
+
+  @media screen and (max-width: 600px) {
+    width: 95%;
+    height: 70%;
+  }
 `;

@@ -5,7 +5,7 @@ import { PersonTile } from "@/components/PersonTile";
 import { useEffect, useState } from "react";
 import { PersonIMC } from "@/interfaces/PersonIMC";
 import { AxiosInstance } from "@/configs/axiosConfig";
-import { EditModal } from "@/components/EditModal";
+import { PersonFormModal } from "@/components/PersonFormModal";
 import { Person } from "@/interfaces/Person";
 import { toast } from "react-toastify";
 import { Spinner } from "@/components/Spinner";
@@ -121,7 +121,7 @@ export const Home = () => {
         )}
       </HomeData>
       {addModalIsOpen && (
-        <EditModal
+        <PersonFormModal
           closeModal={() => {
             setAddModalIsOpen(false);
             setOpenPersonId("");

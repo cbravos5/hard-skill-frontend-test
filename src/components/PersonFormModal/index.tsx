@@ -25,7 +25,7 @@ interface FormData {
   Height: number;
 }
 
-export const EditModal: React.FC<Props> = ({
+export const PersonFormModal: React.FC<Props> = ({
   closeModal,
   addNewPerson,
   editPerson,
@@ -159,7 +159,7 @@ export const EditModal: React.FC<Props> = ({
           />
           <div className="height-weight">
             <Input
-              placeholder="Altura em cm"
+              placeholder="Altura em metros"
               {...register("Height", {
                 required: "Campo obrigatório",
                 validate: (Height) =>

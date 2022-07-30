@@ -26,4 +26,14 @@ export const LoginContainer = styled.main`
     display: block;
     margin: auto;
   }
+
+  @media screen and (max-width: 600px) {
+    min-width: 10vw;
+    max-width: 90vw;
+    min-height: 60vh;
+
+    img {
+      width: 18em;
+    }
+  }
 `;

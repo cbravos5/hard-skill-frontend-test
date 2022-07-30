@@ -82,4 +82,11 @@ export const HomeData = styled.main`
     text-decoration: none;
     transition-duration: 0.4s;
   }
+
+  @media screen and (max-width: 600px) {
+    padding: 0;
+    .people-tiles {
+      overflow-x: hidden;
+    }
+  }
 `;

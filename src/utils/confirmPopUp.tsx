@@ -20,6 +20,10 @@ const ConfirmStyle = styled.div`
       margin-right: 1em;
     }
   }
+
+  @media screen and (max-width: 600px) {
+    max-width: 80vw;
+  }
 `;
 
 interface Props {

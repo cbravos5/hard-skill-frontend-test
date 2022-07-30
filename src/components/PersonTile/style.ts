@@ -35,49 +35,50 @@ export const TileStyle = styled.div`
     }
   }
 
+  .edit,
+  .delete {
+    font-size: 1.2em;
+    color: white;
+    border: none;
+    border-radius: 1em;
+    padding: 0.3em 0.8em;
+    display: block;
+    width: 100%;
+  }
+
+  .edit {
+    background: #4287f5;
+
+    &:hover {
+      transition: background-color 0.15s;
+      background: #0363ff;
+    }
+
+    &:active {
+      transition: all 0s;
+      background: #4287f5;
+      outline: 1px solid #4287f5;
+    }
+  }
+
+  .delete {
+    background: #fc4635;
+    margin-top: 0.5em;
+
+    &:hover {
+      transition: background-color 0.15s;
+      background: #e02312;
+    }
+
+    &:active {
+      transition: all 0s;
+      background: #fc4635;
+      outline: 1px solid #fc4635;
+    }
+  }
+
   .actions {
     margin: auto;
-    .edit,
-    .delete {
-      font-size: 1.2em;
-      color: white;
-      border: none;
-      border-radius: 1em;
-      padding: 0.3em 0.8em;
-      display: block;
-      width: 100%;
-    }
-
-    .edit {
-      background: #4287f5;
-
-      &:hover {
-        transition: background-color 0.15s;
-        background: #0363ff;
-      }
-
-      &:active {
-        transition: all 0s;
-        background: #4287f5;
-        outline: 1px solid #4287f5;
-      }
-    }
-
-    .delete {
-      background: #fc4635;
-      margin-top: 0.5em;
-
-      &:hover {
-        transition: background-color 0.15s;
-        background: #e02312;
-      }
-
-      &:active {
-        transition: all 0s;
-        background: #fc4635;
-        outline: 1px solid #fc4635;
-      }
-    }
 
     button * {
       vertical-align: middle;
@@ -86,6 +87,20 @@ export const TileStyle = styled.div`
     button svg {
       margin-right: 5px;
       font-size: 1.2em;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    box-shadow: none;
+    border-radius: 1em;
+
+    .edit,
+    .delete {
+      display: inline;
+    }
+
+    .actions {
+      margin-top: 1em;
     }
   }
 `;

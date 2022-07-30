@@ -26,14 +26,28 @@ export const ContentContainer = styled.div`
     input {
       width: 100%;
     }
+  }
+
+  .height-weight {
+    display: flex;
+    width: 100%;
+    gap: 2em;
+
+    div {
+      flex: 1;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    form {
+      padding: 0 15%;
+    }
 
     .height-weight {
-      display: flex;
+      display: block;
       width: 100%;
-      gap: 2em;
-
-      div {
-        flex: 1;
+      div:nth-of-type(1) {
+        margin-bottom: 1em;
       }
     }
   }
