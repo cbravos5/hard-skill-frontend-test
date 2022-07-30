@@ -41,10 +41,9 @@ export const Home = () => {
           ))} */}
         </section>
       </HomeData>
-      <AddModal
-        modalIsOpen={addModalIsOpen}
-        closeModal={() => setAddModalIsOpen(false)}
-      />
+      {addModalIsOpen && (
+        <AddModal closeModal={() => setAddModalIsOpen(false)} />
+      )}
     </>
   );
 };
