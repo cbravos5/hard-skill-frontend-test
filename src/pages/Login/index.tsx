@@ -35,7 +35,6 @@ export const Login: React.FC = () => {
         username,
         password,
       });
-      console.log(response);
 
       if (response.status === 200) {
         sessionStorage.setItem("Authorization", response.data.Authorization);

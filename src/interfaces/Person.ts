@@ -3,6 +3,6 @@ export interface Person {
   Name: string;
   Surname: string;
   DateOfBirth: string;
-  Weigth: number;
+  Weight: number;
   Height: number;
 }
