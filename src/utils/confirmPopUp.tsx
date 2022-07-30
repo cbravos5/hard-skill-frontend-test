@@ -22,12 +22,18 @@ const ConfirmStyle = styled.div`
   }
 `;
 
-export const confirmPopUp = (confirm: () => void, msg: string): void => {
+interface Props {
+  onYes: () => void;
+  msg: string;
+  title: string;
+}
+
+export const confirmPopUp = ({ onYes, msg, title }: Props): void => {
   confirmAlert({
     customUI: ({ onClose }) => {
       return (
         <ConfirmStyle>
-          <h1>Confirmar exclusão</h1>
+          <h1>{title}</h1>
           <p>{msg}</p>
           <div className="buttons">
             <GlassButton type="button" label="Não" onClick={onClose} />
@@ -35,7 +41,7 @@ export const confirmPopUp = (confirm: () => void, msg: string): void => {
               type="button"
               label="Sim"
               onClick={() => {
-                confirm();
+                onYes();
                 onClose();
               }}
             />

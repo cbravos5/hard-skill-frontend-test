@@ -66,6 +66,14 @@ export const Home = () => {
     setAddModalIsOpen(true);
   };
 
+  const logout = () => {
+    confirmPopUp({
+      onYes: () => setAuth(false),
+      msg: "Tem certeza que deseja se desconectar?",
+      title: "Confirmar logout",
+    });
+  };
+
   useEffect(() => {
     AxiosInstance.get("/People/IMC")
       .then((response) => {
@@ -85,15 +93,7 @@ export const Home = () => {
           <img src={LeadSoftLogo} alt="Logotipo LeadSoft" />
         </div>
         <div className="user-logout">
-          <button
-            type="button"
-            onClick={() =>
-              confirmPopUp(
-                () => setAuth(false),
-                "Tem certeza que deseja se desconectar?"
-              )
-            }
-          >
+          <button type="button" onClick={logout}>
             <MdLogout />
           </button>
         </div>

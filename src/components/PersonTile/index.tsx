@@ -14,6 +14,14 @@ export const PersonTile: React.FC<Props> = ({
   deletePerson,
   openEdit,
 }) => {
+  const onConfirm = () => {
+    confirmPopUp({
+      onYes: () => deletePerson(personData.Id),
+      msg: `Tem certeza que deseja excluir o cadastro de ${personData.FullName}?`,
+      title: "Confirmar exclusão",
+    });
+  };
+
   return (
     <TileStyle>
       <div className="full-name">
@@ -45,16 +53,7 @@ export const PersonTile: React.FC<Props> = ({
           <FaEdit /> <span>Alterar</span>
         </button>
 
-        <button
-          type="button"
-          className="delete"
-          onClick={() =>
-            confirmPopUp(
-              () => deletePerson(personData.Id),
-              `Tem certeza que deseja excluir o cadastro de ${personData.FullName}?`
-            )
-          }
-        >
+        <button type="button" className="delete" onClick={onConfirm}>
           <FaTrash />
           <span>Excluir</span>
         </button>
