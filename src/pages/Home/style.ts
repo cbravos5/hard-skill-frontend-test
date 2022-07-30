@@ -17,52 +17,6 @@ export const FixedNav = styled.nav`
     margin-left: auto;
   }
 
-  .add button {
-    font-size: 1.275rem;
-    border: none;
-    border-radius: 0.8rem;
-
-    background: black;
-
-    color: white;
-
-    padding: 0.5rem 1.4rem;
-    cursor: pointer;
-    user-select: none;
-    text-align: center;
-    text-decoration: none;
-    transition-duration: 0.4s;
-
-    &:hover {
-      transition-duration: 0.1s;
-      filter: brightness(120%);
-    }
-
-    &:after {
-      content: "";
-      display: block;
-      position: absolute;
-      border-radius: 0.8rem;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      transition: all 0.5s;
-      box-shadow: 0 0 5px 20px white;
-    }
-
-    &:active:after {
-      box-shadow: 0 0 0 0 white;
-      position: absolute;
-      border-radius: 0.8rem;
-      left: 0;
-      top: 0;
-      opacity: 1;
-      transition: 0s;
-    }
-  }
-
   .user-logout {
     text-align: center;
     margin-right: 0;
@@ -94,10 +48,28 @@ export const FixedNav = styled.nav`
 export const HomeData = styled.main`
   width: 100vw;
   padding: 2em;
+  text-align: center;
   .people-tiles {
     display: grid;
     justify-content: center;
     row-gap: 1em;
     padding: 4em;
+  }
+
+  .add button {
+    font-size: 1.275rem;
+    border: none;
+    border-radius: 0.8rem;
+
+    background: #6cd982;
+
+    color: white;
+
+    padding: 0.5rem 1.4rem;
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    text-decoration: none;
+    transition-duration: 0.4s;
   }
 `;

@@ -28,6 +28,9 @@ export const Home = () => {
         </div>
       </FixedNav>
       <HomeData>
+        <div className="add">
+          <button type="button">Incluir</button>
+        </div>
         <section className="people-tiles">
           {peopleIMC.map((personData) => (
             <PersonTile personData={personData} key={personData.Id} />

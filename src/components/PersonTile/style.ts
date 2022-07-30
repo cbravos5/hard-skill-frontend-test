@@ -12,7 +12,7 @@ export const TileStyle = styled.div`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
   .full-name {
-    font-size: 1.25em;
+    font-size: 1.5em;
     font-weight: 600;
     width: 100%;
     margin-bottom: 1.2em;
@@ -24,7 +24,7 @@ export const TileStyle = styled.div`
 
   .data-column {
     margin: auto;
-    font-size: 1.1em;
+    font-size: 1.25em;
 
     span {
       font-weight: 600;
@@ -39,7 +39,7 @@ export const TileStyle = styled.div`
     margin: auto;
     .edit,
     .delete {
-      font-size: 1em;
+      font-size: 1.2em;
       color: white;
       border: none;
       border-radius: 1em;
