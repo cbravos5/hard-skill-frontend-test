@@ -73,6 +73,7 @@ export const FixedNav = styled.nav`
   .user-logout button {
     background: transparent;
     border: none;
+    cursor: pointer;
 
     &:hover {
       transition: color 0.15s;
@@ -87,5 +88,15 @@ export const FixedNav = styled.nav`
 
   div {
     margin: auto;
+  }
+`;
+
+export const HomeData = styled.main`
+  width: 100vw;
+  padding: 2em;
+  .people-tiles {
+    display: grid;
+    justify-content: center;
+    padding: 4em;
   }
 `;

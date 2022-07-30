@@ -1,7 +1,7 @@
 import LeadSoftLogo from "@/assets/leadsoft_logotipo.svg";
-import { FixedNav } from "./style";
-import { FaUserAlt } from "react-icons/fa";
+import { FixedNav, HomeData } from "./style";
 import { MdLogout } from "react-icons/md";
+import { PersonTile } from "@/components/PersonTile";
 
 export const Home = () => {
   return (
@@ -16,29 +16,20 @@ export const Home = () => {
           </button>
         </div>
       </FixedNav>
-      <main>
+      <HomeData>
         <section className="people-tiles">
-          <div>
-            <h3>Nome completo</h3>
-            <div className="column-1">
-              <h4>idade</h4>
-              <h4>altura</h4>
-            </div>
-            <div className="column-2">
-              <h4>altura</h4>
-              <h4>IMC</h4>
-            </div>
-            <div className="actions">
-              <button type="button" className="edit">
-                Alterar
-              </button>
-              <button type="button" className="delete">
-                Excluir
-              </button>
-            </div>
-          </div>
+          <PersonTile
+            personData={{
+              Id: "a9f7402c-5cb6-488d-b613-2c8a2c84703f",
+              FullName: "NomePessoa2222222 SobrenomePessoa222222",
+              Age: 0,
+              Weigth: 90,
+              Height: 190,
+              IMC: 0.011111111111111112,
+            }}
+          />
         </section>
-      </main>
+      </HomeData>
     </>
   );
 };
