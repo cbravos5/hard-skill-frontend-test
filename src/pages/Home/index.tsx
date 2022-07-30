@@ -10,11 +10,13 @@ import { AddModal } from "@/components/AddModal";
 export const Home = () => {
   const [peopleIMC, setPersonIMC] = useState([] as PersonIMC[]);
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    AxiosInstance.get("/People/IMC").then((response) =>
-      setPersonIMC(response.data)
-    );
+    AxiosInstance.get("/People/IMC").then((response) => {
+      setPersonIMC(response.data);
+      setLoading(false);
+    });
   }, []);
 
   return (
@@ -29,18 +31,22 @@ export const Home = () => {
           </button>
         </div>
       </FixedNav>
-      <HomeData>
-        <div className="add">
-          <button type="button" onClick={() => setAddModalIsOpen(true)}>
-            Incluir
-          </button>
-        </div>
-        <section className="people-tiles">
-          {peopleIMC.map((personData) => (
-            <PersonTile personData={personData} key={personData.Id} />
-          ))}
-        </section>
-      </HomeData>
+      {loading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <HomeData>
+          <div className="add">
+            <button type="button" onClick={() => setAddModalIsOpen(true)}>
+              Incluir
+            </button>
+          </div>
+          <section className="people-tiles">
+            {peopleIMC.map((personData) => (
+              <PersonTile personData={personData} key={personData.Id} />
+            ))}
+          </section>
+        </HomeData>
+      )}
       {addModalIsOpen && (
         <AddModal closeModal={() => setAddModalIsOpen(false)} />
       )}

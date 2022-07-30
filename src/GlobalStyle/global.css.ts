@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
+import "react-toastify/dist/ReactToastify.css";
+
 export default createGlobalStyle`
   :root {
     font-family: Inter, Avenir, Helvetica, Arial, sans-serif;

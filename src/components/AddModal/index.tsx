@@ -12,30 +12,43 @@ interface Props {
 }
 
 interface FormData {
-  name: string;
-  surname: string;
-  dateOfBirth: Date;
-  weight: number;
-  height: number;
+  Name: string;
+  Surname: string;
+  DateOfBirth: Date;
+  Weigth: number;
+  Height: number;
 }
 
 export const AddModal: React.FC<Props> = ({ closeModal }) => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<FormData>();
+
+  const handleErrors = (errors: any) => {
+    Object.keys(errors).forEach((field: any) =>
+      setError(field, {
+        type: "pattern",
+        message: errors[field][0],
+      })
+    );
+  };
 
   const submitHandler = handleSubmit(async (submitData) => {
     try {
       const response = await AxiosInstance.post("/People", {
-        ...submitData,
-        weigth: submitData.weight,
-        dateOfbirth: submitData.dateOfBirth.toISOString(),
+        name: submitData.Name,
+        surname: submitData.Surname,
+        weigth: submitData.Weigth,
+        height: submitData.Height,
+        dateOfbirth: submitData.DateOfBirth.toISOString(),
       });
       console.log(response);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      if (error.response?.data.errors) handleErrors(error.response.data.errors);
     }
   });
 
@@ -49,23 +62,23 @@ export const AddModal: React.FC<Props> = ({ closeModal }) => {
           <Input
             type="text"
             placeholder="Nome"
-            {...register("name", {
+            {...register("Name", {
               required: "Campo obrigatório",
             })}
-            error={errors.name?.message}
+            error={errors.Name?.message}
           />
           <Input
             type="text"
             placeholder="Sobrenome"
-            {...register("surname", {
+            {...register("Surname", {
               required: "Campo obrigatório",
             })}
-            error={errors.surname?.message}
+            error={errors.Surname?.message}
           />
           <Input
             type="text"
             placeholder="Data de Nascimento"
-            {...register("dateOfBirth", {
+            {...register("DateOfBirth", {
               required: "Campo obrigatório",
               valueAsDate: true,
               validate: (date) =>
@@ -73,29 +86,28 @@ export const AddModal: React.FC<Props> = ({ closeModal }) => {
                   ? true
                   : "Deve ser uma data válida",
             })}
-            error={errors.dateOfBirth?.message}
+            error={errors.DateOfBirth?.message}
             onFocus={(e) => (e.target.type = "date")}
             onBlur={(e) => (e.target.type = "date")}
           />
           <div className="height-weight">
             <Input
               placeholder="Altura em cm"
-              {...register("height", {
+              {...register("Height", {
                 required: "Campo obrigatório",
-                validate: (height) =>
-                  Number(height) ? true : "Apenas números são válidos",
+                validate: (Height) =>
+                  Number(Height) ? true : "Apenas números são válidos",
               })}
-              error={errors.height?.message}
+              error={errors.Height?.message}
             />
             <Input
-              type="number"
               placeholder="Peso em kg"
-              {...register("weight", {
+              {...register("Weigth", {
                 required: "Campo obrigatório",
                 validate: (height) =>
                   Number(height) ? true : "Apenas números são válidos",
               })}
-              error={errors.weight?.message}
+              error={errors.Weigth?.message}
             />
           </div>
           <div>

@@ -53,6 +53,7 @@ export const FixedNav = styled.nav`
 export const HomeData = styled.main`
   margin-top: 10em;
   width: 100vw;
+  height: calc(100vh - 10em);
   padding: 2em;
   text-align: center;
   .people-tiles {
