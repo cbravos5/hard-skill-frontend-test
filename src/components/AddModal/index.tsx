@@ -6,9 +6,12 @@ import { GlassButton } from "../GlassButton";
 import { useForm } from "react-hook-form";
 import { CustomModal } from "../CustomModal";
 import { AxiosInstance } from "@/configs/axiosConfig";
+import { Person } from "@/interfaces/Person";
+import { toast } from "react-toastify";
 
 interface Props {
   closeModal: () => void;
+  addNewPerson: (person: Person) => void;
 }
 
 interface FormData {
@@ -19,11 +22,12 @@ interface FormData {
   Height: number;
 }
 
-export const AddModal: React.FC<Props> = ({ closeModal }) => {
+export const AddModal: React.FC<Props> = ({ closeModal, addNewPerson }) => {
   const {
     register,
     handleSubmit,
     setError,
+    reset,
     formState: { errors },
   } = useForm<FormData>();
 
@@ -45,7 +49,12 @@ export const AddModal: React.FC<Props> = ({ closeModal }) => {
         height: submitData.Height,
         dateOfbirth: submitData.DateOfBirth.toISOString(),
       });
-      console.log(response);
+
+      if (response.status === 200) {
+        addNewPerson(response.data);
+        toast.success("Nova pessoa adicionada com sucesso");
+        reset();
+      }
     } catch (error: any) {
       console.log(error);
       if (error.response?.data.errors) handleErrors(error.response.data.errors);

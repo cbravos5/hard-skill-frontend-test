@@ -6,15 +6,25 @@ import { useEffect, useState } from "react";
 import { PersonIMC } from "@/interfaces/PersonIMC";
 import { AxiosInstance } from "@/configs/axiosConfig";
 import { AddModal } from "@/components/AddModal";
+import { Person } from "@/interfaces/Person";
 
 export const Home = () => {
-  const [peopleIMC, setPersonIMC] = useState([] as PersonIMC[]);
+  const [peopleIMC, setPeopleIMC] = useState([] as PersonIMC[]);
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const addNewPerson = (person: Person) => {
+    console.log(person);
+
+    AxiosInstance.get(`/People/${person.Id}/IMC`).then((response) => {
+      const newPeopleArray = [...peopleIMC, response.data];
+      setPeopleIMC(newPeopleArray);
+    });
+  };
+
   useEffect(() => {
     AxiosInstance.get("/People/IMC").then((response) => {
-      setPersonIMC(response.data);
+      setPeopleIMC(response.data);
       setLoading(false);
     });
   }, []);
@@ -48,7 +58,10 @@ export const Home = () => {
         </HomeData>
       )}
       {addModalIsOpen && (
-        <AddModal closeModal={() => setAddModalIsOpen(false)} />
+        <AddModal
+          closeModal={() => setAddModalIsOpen(false)}
+          addNewPerson={addNewPerson}
+        />
       )}
     </>
   );
