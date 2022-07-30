@@ -22,7 +22,7 @@ export default function App() {
       <GlobalCSS />
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<ProtectedRoute isAuth={isAuth} />}>
+        <Route path="/home" element={<ProtectedRoute isAuth={true} />}>
           <Route path="/home" element={<Home />} />
         </Route>
         <Route path="*" element={<Navigate to="/home" />} />

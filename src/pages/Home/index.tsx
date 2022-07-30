@@ -1,17 +1,19 @@
 import LeadSoftLogo from "@/assets/leadsoft_logotipo.svg";
 import { FixedNav } from "./style";
+import { FaUserAlt } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
 
 export const Home = () => {
   return (
     <>
       <FixedNav>
-        <img src={LeadSoftLogo} alt="Logotipo LeadSoft" />
-        <div className="add">
-          <button type="button">incluir</button>
+        <div className="logo">
+          <img src={LeadSoftLogo} alt="Logotipo LeadSoft" />
         </div>
         <div className="user-logout">
-          <button type="button">ICON HERE</button>
-          <button type="button">logout</button>
+          <button type="button">
+            <MdLogout size={25} />
+          </button>
         </div>
       </FixedNav>
       <main>

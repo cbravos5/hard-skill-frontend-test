@@ -5,18 +5,16 @@ export const FixedNav = styled.nav`
   top: 0;
   left: 0;
   width: 100vw;
-
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  align-items: center;
-  padding: 10px;
+  display: flex;
+  padding: 0 10px;
 
   background: ${({ theme }) => theme.secondary};
   border-bottom: 3px solid ${({ theme }) => theme.primary};
 
-  img {
-    display: block;
-    max-width: 10vw;
+  .logo {
+    width: 15%;
+    margin-right: 0;
+    margin-left: auto;
   }
 
   .add button {
@@ -24,7 +22,9 @@ export const FixedNav = styled.nav`
     border: none;
     border-radius: 0.8rem;
 
-    background: ${({ theme }) => theme.primary};
+    background: black;
+
+    color: white;
 
     padding: 0.5rem 1.4rem;
     cursor: pointer;
@@ -65,9 +65,23 @@ export const FixedNav = styled.nav`
 
   .user-logout {
     text-align: center;
-    button {
-      background: transparent;
-      border: none;
+    margin-right: 0;
+    margin-left: auto;
+    padding: 0 5px 0 0;
+  }
+
+  .user-logout button {
+    background: transparent;
+    border: none;
+
+    &:hover {
+      transition: color 0.15s;
+      color: ${({ theme }) => theme.primary};
+    }
+
+    &:active {
+      transition: color 0.1s;
+      color: black;
     }
   }
 
