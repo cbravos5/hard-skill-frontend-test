@@ -1,4 +1,7 @@
 import Modal from "react-modal";
+import { AiFillCloseCircle } from "react-icons/ai";
+import { Input } from "../Input";
+import { useState } from "react";
 
 interface Props {
   modalIsOpen: boolean;
@@ -24,16 +27,36 @@ const modalStyles: Modal.Styles = {
 };
 
 export const AddModal: React.FC<Props> = ({ modalIsOpen, closeModal }) => {
+  const [startDate, setStartDate] = useState<Date>();
+
   return (
-    <div className="modal-container">
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={modalStyles}
-        ariaHideApp={false}
-      >
-        <h1>Modal content</h1>
-      </Modal>
-    </div>
+    <Modal
+      isOpen={modalIsOpen}
+      onRequestClose={closeModal}
+      style={modalStyles}
+      ariaHideApp={false}
+    >
+      <div>
+        <button className="close" type="button">
+          <AiFillCloseCircle size={20} />
+        </button>
+        <form action="insert">
+          <Input type="text" placeholder="Nome" error="" />
+          <Input type="text" placeholder="Sobrenome" error="" />
+          <Input
+            type="text"
+            placeholder="Data de Nascimento"
+            error=""
+            onFocus={(e) => (e.target.type = "date")}
+            onBlur={(e) => (e.target.type = "date")}
+          />
+
+          <div>
+            <Input type="number" placeholder="Altura em cm" error="" />
+            <Input type="number" placeholder="Peso em kg" error="" />
+          </div>
+        </form>
+      </div>
+    </Modal>
   );
 };
