@@ -6,9 +6,14 @@ import { TileStyle } from "./style";
 interface Props {
   personData: PersonIMC;
   deletePerson: (id: string) => void;
+  openEdit: (id: string) => void;
 }
 
-export const PersonTile: React.FC<Props> = ({ personData, deletePerson }) => {
+export const PersonTile: React.FC<Props> = ({
+  personData,
+  deletePerson,
+  openEdit,
+}) => {
   return (
     <TileStyle>
       <div className="full-name">
@@ -32,7 +37,11 @@ export const PersonTile: React.FC<Props> = ({ personData, deletePerson }) => {
         </p>
       </div>
       <div className="actions">
-        <button type="button" className="edit">
+        <button
+          type="button"
+          className="edit"
+          onClick={() => openEdit(personData.Id)}
+        >
           <FaEdit /> <span>Alterar</span>
         </button>
 

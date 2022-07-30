@@ -1,6 +1,6 @@
 import { AiFillCloseCircle } from "react-icons/ai";
 import { Input } from "../Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ContentContainer } from "./style";
 import { GlassButton } from "../GlassButton";
 import { useForm } from "react-hook-form";
@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 interface Props {
   closeModal: () => void;
   addNewPerson: (person: Person) => void;
+  editPerson: (person: Person) => void;
+  id?: string;
 }
 
 interface FormData {
@@ -22,7 +24,12 @@ interface FormData {
   Height: number;
 }
 
-export const AddModal: React.FC<Props> = ({ closeModal, addNewPerson }) => {
+export const EditModal: React.FC<Props> = ({
+  closeModal,
+  addNewPerson,
+  editPerson,
+  id,
+}) => {
   const {
     register,
     handleSubmit,
@@ -30,6 +37,17 @@ export const AddModal: React.FC<Props> = ({ closeModal, addNewPerson }) => {
     reset,
     formState: { errors },
   } = useForm<FormData>();
+
+  useEffect(() => {
+    if (!id) return;
+    AxiosInstance.get(`/People/${id}`).then((response) => {
+      const date = new Date(response.data.DateOfBirth).toLocaleDateString();
+      reset({
+        ...response.data,
+        DateOfBirth: date,
+      });
+    });
+  }, []);
 
   const handleErrors = (errors: any) => {
     Object.keys(errors).forEach((field: any) =>
@@ -40,7 +58,28 @@ export const AddModal: React.FC<Props> = ({ closeModal, addNewPerson }) => {
     );
   };
 
-  const submitHandler = handleSubmit(async (submitData) => {
+  const submitEditHandler = handleSubmit(async (submitData) => {
+    try {
+      const response = await AxiosInstance.put(`/People/${id}`, {
+        name: submitData.Name,
+        surname: submitData.Surname,
+        weigth: submitData.Weigth,
+        height: submitData.Height,
+        dateOfbirth: submitData.DateOfBirth.toISOString(),
+      });
+
+      if (response.status === 200) {
+        editPerson(response.data);
+        toast.success("Edição de cadastro realizada com sucesso");
+        closeModal();
+      }
+    } catch (error: any) {
+      console.log(error);
+      if (error.response?.data.errors) handleErrors(error.response.data.errors);
+    }
+  });
+
+  const submitAddHandler = handleSubmit(async (submitData) => {
     try {
       const response = await AxiosInstance.post("/People", {
         name: submitData.Name,
@@ -52,7 +91,7 @@ export const AddModal: React.FC<Props> = ({ closeModal, addNewPerson }) => {
 
       if (response.status === 200) {
         addNewPerson(response.data);
-        toast.success("Nova pessoa adicionada com sucesso");
+        toast.success("Novo cadastro adicionado com sucesso");
         reset();
       }
     } catch (error: any) {
@@ -67,7 +106,10 @@ export const AddModal: React.FC<Props> = ({ closeModal, addNewPerson }) => {
         <button className="close" type="button" onClick={closeModal}>
           <AiFillCloseCircle size={25} />
         </button>
-        <form action="insert" onSubmit={submitHandler}>
+        <form
+          action="insert"
+          onSubmit={id ? submitEditHandler : submitAddHandler}
+        >
           <Input
             type="text"
             placeholder="Nome"

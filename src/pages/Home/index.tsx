@@ -5,7 +5,7 @@ import { PersonTile } from "@/components/PersonTile";
 import { useEffect, useState } from "react";
 import { PersonIMC } from "@/interfaces/PersonIMC";
 import { AxiosInstance } from "@/configs/axiosConfig";
-import { AddModal } from "@/components/AddModal";
+import { EditModal } from "@/components/EditModal";
 import { Person } from "@/interfaces/Person";
 import { toast } from "react-toastify";
 
@@ -13,6 +13,7 @@ export const Home = () => {
   const [peopleIMC, setPeopleIMC] = useState([] as PersonIMC[]);
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [openPersonId, setOpenPersonId] = useState("");
 
   const addNewPerson = (person: Person) => {
     AxiosInstance.get(`/People/${person.Id}/IMC`)
@@ -41,6 +42,24 @@ export const Home = () => {
           }`
         );
       });
+  };
+
+  const editPerson = (person: Person) => {
+    AxiosInstance.get(`/People/${person.Id}/IMC`)
+      .then((response) => {
+        const newPeopleArray = peopleIMC.filter(({ Id }) => Id !== person.Id);
+        newPeopleArray.push(response.data);
+        setPeopleIMC(newPeopleArray);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Erro ao buscar dados do servidor");
+      });
+  };
+
+  const openEdit = (id: string) => {
+    setOpenPersonId(id);
+    setAddModalIsOpen(true);
   };
 
   useEffect(() => {
@@ -82,15 +101,21 @@ export const Home = () => {
                 personData={personData}
                 key={personData.Id}
                 deletePerson={deletePerson}
+                openEdit={openEdit}
               />
             ))}
           </section>
         </HomeData>
       )}
       {addModalIsOpen && (
-        <AddModal
-          closeModal={() => setAddModalIsOpen(false)}
+        <EditModal
+          closeModal={() => {
+            setAddModalIsOpen(false);
+            setOpenPersonId("");
+          }}
           addNewPerson={addNewPerson}
+          editPerson={editPerson}
+          id={openPersonId}
         />
       )}
     </>
