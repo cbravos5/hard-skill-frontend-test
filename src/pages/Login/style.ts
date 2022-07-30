@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const LoginContainer = styled.main`
   margin: 0;
-  padding: 1rem;
+  padding: 1em;
   min-width: 50vw;
   min-height: 50vh;
 
@@ -15,7 +15,7 @@ export const LoginContainer = styled.main`
   box-shadow: 0 0 0 10px ${({ theme }) => theme.primary};
 
   img {
-    width: 50%;
+    width: 25em;
   }
 
   .input {

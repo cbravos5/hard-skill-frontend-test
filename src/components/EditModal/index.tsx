@@ -8,6 +8,7 @@ import { CustomModal } from "../CustomModal";
 import { AxiosInstance } from "@/configs/axiosConfig";
 import { Person } from "@/interfaces/Person";
 import { toast } from "react-toastify";
+import { Spinner } from "../Spinner";
 
 interface Props {
   closeModal: () => void;
@@ -37,16 +38,30 @@ export const EditModal: React.FC<Props> = ({
     reset,
     formState: { errors },
   } = useForm<FormData>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) return;
-    AxiosInstance.get(`/People/${id}`).then((response) => {
-      const date = new Date(response.data.DateOfBirth).toLocaleDateString();
-      reset({
-        ...response.data,
-        DateOfBirth: date,
+    if (!id) {
+      setLoading(false);
+      return;
+    }
+    AxiosInstance.get(`/People/${id}`)
+      .then((response) => {
+        const date = new Date(response.data.DateOfBirth).toLocaleDateString();
+        reset({
+          ...response.data,
+          DateOfBirth: date,
+        });
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(
+          `Erro ao buscar dados - ${
+            error.response.status === 404 ? "Cadastro não encontrado" : ""
+          }`
+        );
       });
-    });
   }, []);
 
   const handleErrors = (errors: any) => {
@@ -110,6 +125,7 @@ export const EditModal: React.FC<Props> = ({
           action="insert"
           onSubmit={id ? submitEditHandler : submitAddHandler}
         >
+          <Spinner loading={loading} color="dark" />
           <Input
             type="text"
             placeholder="Nome"

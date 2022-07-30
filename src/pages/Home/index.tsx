@@ -8,12 +8,16 @@ import { AxiosInstance } from "@/configs/axiosConfig";
 import { EditModal } from "@/components/EditModal";
 import { Person } from "@/interfaces/Person";
 import { toast } from "react-toastify";
+import { Spinner } from "@/components/Spinner";
+import { useAuthContext } from "@/contexts/Auth";
+import { confirmPopUp } from "@/utils/confirmPopUp";
 
 export const Home = () => {
   const [peopleIMC, setPeopleIMC] = useState([] as PersonIMC[]);
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [openPersonId, setOpenPersonId] = useState("");
+  const { setAuth } = useAuthContext();
 
   const addNewPerson = (person: Person) => {
     AxiosInstance.get(`/People/${person.Id}/IMC`)
@@ -81,20 +85,29 @@ export const Home = () => {
           <img src={LeadSoftLogo} alt="Logotipo LeadSoft" />
         </div>
         <div className="user-logout">
-          <button type="button">
+          <button
+            type="button"
+            onClick={() =>
+              confirmPopUp(
+                () => setAuth(false),
+                "Tem certeza que deseja se desconectar?"
+              )
+            }
+          >
             <MdLogout />
           </button>
         </div>
       </FixedNav>
-      {loading ? (
-        <h1>Loading...</h1>
-      ) : (
-        <HomeData>
-          <div className="add">
-            <button type="button" onClick={() => setAddModalIsOpen(true)}>
-              Incluir
-            </button>
-          </div>
+
+      <HomeData>
+        <div className="add">
+          <button type="button" onClick={() => setAddModalIsOpen(true)}>
+            Incluir
+          </button>
+        </div>
+        {loading ? (
+          <Spinner loading={true} color="dark" />
+        ) : (
           <section className="people-tiles">
             {peopleIMC.map((personData) => (
               <PersonTile
@@ -105,8 +118,8 @@ export const Home = () => {
               />
             ))}
           </section>
-        </HomeData>
-      )}
+        )}
+      </HomeData>
       {addModalIsOpen && (
         <EditModal
           closeModal={() => {

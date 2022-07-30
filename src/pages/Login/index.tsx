@@ -1,6 +1,6 @@
 import LeadSoftLogo from "@/assets/leadsoft_logotipo.svg";
 import { AxiosInstance } from "@/configs/axiosConfig";
-import React from "react";
+import React, { useState } from "react";
 import { LoginContainer } from "./style";
 import { useForm } from "react-hook-form";
 import { GlassButton } from "@/components/GlassButton";
@@ -8,6 +8,7 @@ import { Input } from "@/components/Input";
 import { toast } from "react-toastify";
 import { useAuthContext } from "@/contexts/Auth";
 import { useNavigate } from "react-router-dom";
+import { Spinner } from "@/components/Spinner";
 
 interface FormData {
   username: string;
@@ -27,9 +28,12 @@ export const Login: React.FC = () => {
   } = useForm<FormData>();
 
   const { setAuth } = useAuthContext();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const submitHandler = handleSubmit(async ({ username, password }) => {
+    setLoading(true);
+
     try {
       const response = await AxiosInstance.post("/Auth/Login", {
         username,
@@ -42,6 +46,7 @@ export const Login: React.FC = () => {
         navigate("/home");
       }
     } catch (error: any) {
+      setLoading(false);
       console.log(error.response);
       if (error.response.data) toast.error("Usuário e/ou senha inválidos");
     }
@@ -52,6 +57,7 @@ export const Login: React.FC = () => {
 
   return (
     <LoginContainer>
+      <Spinner loading={loading} color="dark" />
       <img src={LeadSoftLogo} alt="Logotipo LeadSoft" />
       <p>Sistema de gerência de pessoas</p>
       <form action="login" onSubmit={submitHandler}>
