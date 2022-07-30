@@ -9,7 +9,10 @@ interface Props {
 export const PersonTile: React.FC<Props> = ({ personData }) => {
   return (
     <TileStyle>
-      <span className="full-name">{personData.FullName}</span>
+      <div className="full-name">
+        <p>{personData.FullName}</p>
+      </div>
+
       <div className="data-column">
         <p>
           Idade: <span>{personData.Age} anos</span>

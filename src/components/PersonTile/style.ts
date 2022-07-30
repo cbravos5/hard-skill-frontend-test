@@ -6,7 +6,6 @@ export const TileStyle = styled.div`
   align-content: center;
   flex-wrap: wrap;
   background: ${({ theme }) => theme.tertiary};
-  gap: 4em;
   padding: 0.7em 1em;
   border-radius: 5px;
   text-align: center;
@@ -15,10 +14,16 @@ export const TileStyle = styled.div`
   .full-name {
     font-size: 1.25em;
     font-weight: 600;
-    overflow-wrap: word-wrap;
+    width: 100%;
+    margin-bottom: 1.2em;
+
+    p {
+      overflow-wrap: break-word;
+    }
   }
 
   .data-column {
+    margin: auto;
     font-size: 1.1em;
 
     span {

@@ -97,6 +97,7 @@ export const HomeData = styled.main`
   .people-tiles {
     display: grid;
     justify-content: center;
+    row-gap: 1em;
     padding: 4em;
   }
 `;
