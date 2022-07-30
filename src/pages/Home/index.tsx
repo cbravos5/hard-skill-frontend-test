@@ -5,9 +5,11 @@ import { PersonTile } from "@/components/PersonTile";
 import { useEffect, useState } from "react";
 import { PersonIMC } from "@/interfaces/PersonIMC";
 import { AxiosInstance } from "@/configs/axiosConfig";
+import { AddModal } from "@/components/AddModal";
 
 export const Home = () => {
   const [peopleIMC, setPersonIMC] = useState([] as PersonIMC[]);
+  const [addModalIsOpen, setAddModalIsOpen] = useState(false);
 
   useEffect(() => {
     AxiosInstance.get("/People/IMC").then((response) =>
@@ -29,14 +31,20 @@ export const Home = () => {
       </FixedNav>
       <HomeData>
         <div className="add">
-          <button type="button">Incluir</button>
+          <button type="button" onClick={() => setAddModalIsOpen(true)}>
+            Incluir
+          </button>
         </div>
         <section className="people-tiles">
-          {peopleIMC.map((personData) => (
+          {/* {peopleIMC.map((personData) => (
             <PersonTile personData={personData} key={personData.Id} />
-          ))}
+          ))} */}
         </section>
       </HomeData>
+      <AddModal
+        modalIsOpen={addModalIsOpen}
+        closeModal={() => setAddModalIsOpen(false)}
+      />
     </>
   );
 };
