@@ -21,6 +21,7 @@ AxiosInstance.interceptors.response.use(
   (error) => {
     if (error.response.status === 401) {
       toast.error("Erro de requisição. Nova autenticação necessária.");
+      window.location.href = "/login";
     }
     return Promise.reject(error);
   }

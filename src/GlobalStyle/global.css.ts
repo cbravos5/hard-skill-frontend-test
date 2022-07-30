@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 import "react-toastify/dist/ReactToastify.css";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 export default createGlobalStyle`
   :root {
@@ -36,5 +37,9 @@ export default createGlobalStyle`
     display: grid;
     justify-items: center;
     align-items: center;
+  }
+
+  .react-confirm-alert-overlay {
+    background: rgba(0,0,0,0.8) !important;
   }
 `;

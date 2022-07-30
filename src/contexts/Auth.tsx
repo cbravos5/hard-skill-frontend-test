@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 interface AuthProps {
   isAuth: boolean;
@@ -8,7 +8,9 @@ interface AuthProps {
 export const Auth = React.createContext({} as AuthProps);
 
 export const AuthContext = ({ children }: { children: React.ReactNode }) => {
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(
+    !!sessionStorage.getItem("Authorization")
+  );
   const setAuth = (value: boolean) => setIsAuth(value);
 
   const contextValues = useMemo(

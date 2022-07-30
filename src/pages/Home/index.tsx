@@ -7,6 +7,7 @@ import { PersonIMC } from "@/interfaces/PersonIMC";
 import { AxiosInstance } from "@/configs/axiosConfig";
 import { AddModal } from "@/components/AddModal";
 import { Person } from "@/interfaces/Person";
+import { toast } from "react-toastify";
 
 export const Home = () => {
   const [peopleIMC, setPeopleIMC] = useState([] as PersonIMC[]);
@@ -14,19 +15,44 @@ export const Home = () => {
   const [loading, setLoading] = useState(true);
 
   const addNewPerson = (person: Person) => {
-    console.log(person);
+    AxiosInstance.get(`/People/${person.Id}/IMC`)
+      .then((response) => {
+        const newPeopleArray = [...peopleIMC, response.data];
+        setPeopleIMC(newPeopleArray);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Erro ao buscar dados do servidor");
+      });
+  };
 
-    AxiosInstance.get(`/People/${person.Id}/IMC`).then((response) => {
-      const newPeopleArray = [...peopleIMC, response.data];
-      setPeopleIMC(newPeopleArray);
-    });
+  const deletePerson = (id: string) => {
+    AxiosInstance.delete(`/People/${id}`)
+      .then((response) => {
+        const newPeopleArray = peopleIMC.filter((person) => person.Id !== id);
+        setPeopleIMC(newPeopleArray);
+        toast.success("Cadastro excluído com sucesso");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(
+          `Erro ao excluir cadastro - ${
+            error.response.status === 404 ? "Cadastro não encontrado" : ""
+          }`
+        );
+      });
   };
 
   useEffect(() => {
-    AxiosInstance.get("/People/IMC").then((response) => {
-      setPeopleIMC(response.data);
-      setLoading(false);
-    });
+    AxiosInstance.get("/People/IMC")
+      .then((response) => {
+        setPeopleIMC(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Erro ao buscar dados do servidor");
+      });
   }, []);
 
   return (
@@ -52,7 +78,11 @@ export const Home = () => {
           </div>
           <section className="people-tiles">
             {peopleIMC.map((personData) => (
-              <PersonTile personData={personData} key={personData.Id} />
+              <PersonTile
+                personData={personData}
+                key={personData.Id}
+                deletePerson={deletePerson}
+              />
             ))}
           </section>
         </HomeData>
