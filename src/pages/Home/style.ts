@@ -7,21 +7,26 @@ export const FixedNav = styled.nav`
   width: 100vw;
   display: flex;
   padding: 0 10px;
+  height: 5em;
 
   background: ${({ theme }) => theme.secondary};
   border-bottom: 3px solid ${({ theme }) => theme.primary};
 
   .logo {
-    width: 15%;
-    margin-right: 0;
+    width: 12em;
+    margin-right: auto;
     margin-left: auto;
   }
 
   .user-logout {
     text-align: center;
-    margin-right: 0;
-    margin-left: auto;
+    margin-right: 1em;
+    margin-left: -2em;
     padding: 0 5px 0 0;
+
+    * {
+      font-size: 1.5em;
+    }
   }
 
   .user-logout button {
@@ -46,14 +51,18 @@ export const FixedNav = styled.nav`
 `;
 
 export const HomeData = styled.main`
+  margin-top: 10em;
   width: 100vw;
   padding: 2em;
   text-align: center;
   .people-tiles {
+    overflow-y: scroll;
+    height: 70vh;
     display: grid;
     justify-content: center;
     row-gap: 1em;
-    padding: 4em;
+    padding: 0 4em 4em 4em;
+    margin-top: 4em;
   }
 
   .add button {

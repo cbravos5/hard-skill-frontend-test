@@ -25,7 +25,7 @@ export const Home = () => {
         </div>
         <div className="user-logout">
           <button type="button">
-            <MdLogout size={25} />
+            <MdLogout />
           </button>
         </div>
       </FixedNav>
@@ -36,9 +36,9 @@ export const Home = () => {
           </button>
         </div>
         <section className="people-tiles">
-          {/* {peopleIMC.map((personData) => (
+          {peopleIMC.map((personData) => (
             <PersonTile personData={personData} key={personData.Id} />
-          ))} */}
+          ))}
         </section>
       </HomeData>
       {addModalIsOpen && (

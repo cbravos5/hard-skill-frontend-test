@@ -5,6 +5,7 @@ import { ContentContainer } from "./style";
 import { GlassButton } from "../GlassButton";
 import { useForm } from "react-hook-form";
 import { CustomModal } from "../CustomModal";
+import { AxiosInstance } from "@/configs/axiosConfig";
 
 interface Props {
   closeModal: () => void;
@@ -13,7 +14,7 @@ interface Props {
 interface FormData {
   name: string;
   surname: string;
-  birth: string;
+  dateOfBirth: Date;
   weight: number;
   height: number;
 }
@@ -26,7 +27,16 @@ export const AddModal: React.FC<Props> = ({ closeModal }) => {
   } = useForm<FormData>();
 
   const submitHandler = handleSubmit(async (submitData) => {
-    console.log(submitData);
+    try {
+      const response = await AxiosInstance.post("/People", {
+        ...submitData,
+        weigth: submitData.weight,
+        dateOfbirth: submitData.dateOfBirth.toISOString(),
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   return (
@@ -53,20 +63,22 @@ export const AddModal: React.FC<Props> = ({ closeModal }) => {
             error={errors.surname?.message}
           />
           <Input
-            className="birth"
             type="text"
             placeholder="Data de Nascimento"
-            {...register("birth", {
+            {...register("dateOfBirth", {
               required: "Campo obrigatório",
               valueAsDate: true,
+              validate: (date) =>
+                date instanceof Date && !isNaN(Number(date))
+                  ? true
+                  : "Deve ser uma data válida",
             })}
-            error={errors.birth?.message}
+            error={errors.dateOfBirth?.message}
             onFocus={(e) => (e.target.type = "date")}
             onBlur={(e) => (e.target.type = "date")}
           />
           <div className="height-weight">
             <Input
-              className="height"
               placeholder="Altura em cm"
               {...register("height", {
                 required: "Campo obrigatório",
@@ -76,7 +88,6 @@ export const AddModal: React.FC<Props> = ({ closeModal }) => {
               error={errors.height?.message}
             />
             <Input
-              className="weight"
               type="number"
               placeholder="Peso em kg"
               {...register("weight", {
