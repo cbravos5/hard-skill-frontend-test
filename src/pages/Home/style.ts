@@ -51,21 +51,22 @@ export const FixedNav = styled.nav`
 `;
 
 export const HomeData = styled.main`
-  margin-top: 10em;
+  margin-top: 6em;
   width: 100vw;
-  height: calc(100vh - 10em);
-  padding: 2em;
+  height: calc(100vh - 6em);
+  padding: 1em 2em;
   text-align: center;
+
   .people-tiles {
     overflow-y: scroll;
-    height: 60vh;
+    height: 80%;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     justify-content: stretch;
     row-gap: 1em;
     padding: 0 4em 4em 4em;
-    margin-top: 4em;
+    margin-top: 1.5em;
   }
 
   .add button {
@@ -85,12 +86,43 @@ export const HomeData = styled.main`
     transition-duration: 0.1s;
 
     &:hover {
-      background: #0c3801;
+      background: #1f7a09;
     }
 
-    &:focus {
-      background: #209403;
-      outline: 1px solid #209403;
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+
+  .search-bar {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 1.5em;
+    margin-top: 1.5em;
+
+    input,
+    div {
+      height: 100%;
+      padding: 2px 12px;
+      border: none;
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.5);
+    }
+
+    input {
+      font-size: 1em;
+      border-radius: 0 1em 1em 0;
+
+      &:focus {
+        box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    div {
+      border-radius: 1em 0 0 1em;
+      display: grid;
+      place-items: center;
     }
   }
 

@@ -12,6 +12,7 @@ import { Spinner } from "@/components/Spinner";
 import { useAuthContext } from "@/contexts/Auth";
 import { confirmPopUp } from "@/utils/confirmPopUp";
 import { useDebounce } from "@/hooks/useDebounce";
+import { FaSearch } from "react-icons/fa";
 
 const filterPeople = (searchString: string, peopleArray: PersonIMC[]) =>
   peopleArray.filter(({ FullName }) =>
@@ -128,6 +129,9 @@ export const Home = () => {
           </button>
         </div>
         <div className="search-bar">
+          <div>
+            <FaSearch />
+          </div>
           <input
             type="text"
             placeholder="Filtrar por nome"
