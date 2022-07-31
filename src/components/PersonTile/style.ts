@@ -45,6 +45,10 @@ export const TileStyle = styled.div`
     display: block;
     width: 100%;
     cursor: pointer;
+
+    &:active {
+      transform: scale(0.97);
+    }
   }
 
   .edit {
@@ -53,12 +57,6 @@ export const TileStyle = styled.div`
     &:hover {
       transition: background-color 0.15s;
       background: #0363ff;
-    }
-
-    &:active {
-      transition: all 0s;
-      background: #4287f5;
-      outline: 1px solid #4287f5;
     }
   }
 
@@ -69,12 +67,6 @@ export const TileStyle = styled.div`
     &:hover {
       transition: background-color 0.15s;
       background: #e02312;
-    }
-
-    &:active {
-      transition: all 0s;
-      background: #fc4635;
-      outline: 1px solid #fc4635;
     }
   }
 
