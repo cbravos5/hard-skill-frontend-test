@@ -11,8 +11,7 @@ import { toast } from "react-toastify";
 import { Spinner } from "@/components/Spinner";
 import { useAuthContext } from "@/contexts/Auth";
 import { confirmPopUp } from "@/utils/confirmPopUp";
-import { useDebounce } from "@/hooks/useDebounce";
-import { FaSearch } from "react-icons/fa";
+import { SearchBar } from "@/components/SearchBar";
 
 const filterPeople = (searchString: string, peopleArray: PersonIMC[]) =>
   peopleArray.filter(({ FullName }) =>
@@ -25,9 +24,7 @@ export const Home = () => {
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [openPerson, setOpenPerson] = useState<PersonIMC>();
-  const [searchTerm, setSearchTerm] = useState("");
   const { setAuth } = useAuthContext();
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   const addNewPerson = (person: Person) => {
     AxiosInstance.get(`/People/${person.Id}/IMC`)
@@ -42,13 +39,16 @@ export const Home = () => {
   };
 
   const deletePerson = (id: string) => {
+    setLoading(true);
     AxiosInstance.delete(`/People/${id}`)
       .then((response) => {
         const newPeopleArray = peopleIMC.filter((person) => person.Id !== id);
         setPeopleIMC(newPeopleArray);
+        setLoading(false);
         toast.success("Cadastro excluído com sucesso");
       })
       .catch((error) => {
+        setLoading(false);
         console.log(error);
         toast.error(
           `Erro ao excluir cadastro - ${
@@ -96,22 +96,7 @@ export const Home = () => {
       });
   }, []);
 
-  useEffect(
-    () => {
-      if (debouncedSearchTerm) {
-        const filteredPeople = filterPeople(searchTerm, peopleIMC);
-        setPeopleIMCShow(filteredPeople);
-      } else {
-        setPeopleIMCShow(peopleIMC);
-      }
-    },
-    [debouncedSearchTerm] // Only call effect if debounced search term changes
-  );
-
-  useEffect(() => {
-    setPeopleIMCShow(peopleIMC);
-    console.log("salve");
-  }, [peopleIMC]);
+  useEffect(() => setPeopleIMCShow(peopleIMC), [peopleIMC]);
 
   return (
     <>
@@ -132,28 +117,27 @@ export const Home = () => {
             Incluir
           </button>
         </div>
-        <div className="search-bar">
-          <div>
-            <FaSearch />
-          </div>
-          <input
-            type="text"
-            placeholder="Filtrar por nome"
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
+        <SearchBar
+          filter={filterPeople}
+          originalData={peopleIMC}
+          setter={setPeopleIMCShow}
+        />
         {loading ? (
           <Spinner loading={true} color="dark" />
         ) : (
           <section className="people-tiles">
-            {peopleIMCShow.map((personData) => (
-              <PersonTile
-                personData={personData}
-                key={personData.Id}
-                deletePerson={deletePerson}
-                openEdit={openEdit}
-              />
-            ))}
+            {peopleIMC.length > 0 ? (
+              peopleIMCShow.map((personData) => (
+                <PersonTile
+                  personData={personData}
+                  key={personData.Id}
+                  deletePerson={deletePerson}
+                  openEdit={openEdit}
+                />
+              ))
+            ) : (
+              <h2>Não existem pessoas cadastradas no momento</h2>
+            )}
           </section>
         )}
       </HomeData>

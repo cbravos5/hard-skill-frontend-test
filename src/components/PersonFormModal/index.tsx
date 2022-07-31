@@ -11,6 +11,10 @@ import { toast } from "react-toastify";
 import { Spinner } from "../Spinner";
 import { FaEdit, FaPlusCircle } from "react-icons/fa";
 import { PersonIMC } from "@/interfaces/PersonIMC";
+import { isDate } from "util/types";
+import { isvalidDate } from "@/utils/isValidDate";
+import { isValidNumber } from "@/utils/isValidNumber";
+import { ActionInfo } from "../ActionInfo";
 
 interface Props {
   closeModal: () => void;
@@ -76,6 +80,7 @@ export const PersonFormModal: React.FC<Props> = ({
   };
 
   const submitEditHandler = handleSubmit(async (submitData) => {
+    setLoading(true);
     try {
       const response = await AxiosInstance.put(`/People/${person?.Id}`, {
         name: submitData.Name,
@@ -91,12 +96,14 @@ export const PersonFormModal: React.FC<Props> = ({
         closeModal();
       }
     } catch (error: any) {
+      setLoading(false);
       console.log(error);
       if (error.response?.data.errors) handleErrors(error.response.data.errors);
     }
   });
 
   const submitAddHandler = handleSubmit(async (submitData) => {
+    setLoading(true);
     try {
       const response = await AxiosInstance.post("/People", {
         name: submitData.Name,
@@ -110,8 +117,10 @@ export const PersonFormModal: React.FC<Props> = ({
         addNewPerson(response.data);
         toast.success("Novo cadastro adicionado com sucesso");
         reset();
+        setLoading(false);
       }
     } catch (error: any) {
+      setLoading(false);
       console.log(error);
       if (error.response?.data.errors) handleErrors(error.response.data.errors);
     }
@@ -120,31 +129,19 @@ export const PersonFormModal: React.FC<Props> = ({
   return (
     <CustomModal>
       <ContentContainer>
+        <Spinner loading={loading} color="dark" />
         <button className="close" type="button" onClick={closeModal}>
           <AiFillCloseCircle size={25} />
         </button>
-        <div className={`action-info ${loading ? "invisible" : ""}`}>
-          <div className="icon">
-            {person?.Id ? <FaEdit /> : <FaPlusCircle />}
-          </div>
-          <div className="description">
-            <p>
-              {person?.Id
-                ? `Você está editando ${person?.FullName}`
-                : "Você está cadastrando uma nova pessoa"}
-            </p>
-          </div>
-        </div>
+        <ActionInfo className={loading ? "invisible" : ""} person={person} />
         <form
           action="insert"
           onSubmit={person?.Id ? submitEditHandler : submitAddHandler}
           className={loading ? "invisible" : ""}
         >
-          <Spinner loading={loading} color="dark" />
           <Input
             label="Nome"
             type="text"
-            placeholder="Nome"
             {...register("Name", {
               required: "Campo obrigatório",
             })}
@@ -153,7 +150,6 @@ export const PersonFormModal: React.FC<Props> = ({
           <Input
             label="Sobrenome"
             type="text"
-            placeholder="Sobrenome"
             {...register("Surname", {
               required: "Campo obrigatório",
             })}
@@ -162,14 +158,10 @@ export const PersonFormModal: React.FC<Props> = ({
           <Input
             label="Data de nascimento"
             type="text"
-            placeholder="Data de Nascimento"
             {...register("DateOfBirth", {
               required: "Campo obrigatório",
               valueAsDate: true,
-              validate: (date) =>
-                date instanceof Date && !isNaN(Number(date))
-                  ? true
-                  : "Deve ser uma data válida",
+              validate: isvalidDate,
             })}
             error={errors.DateOfBirth?.message}
             onFocus={(e) => (e.target.type = "date")}
@@ -180,21 +172,17 @@ export const PersonFormModal: React.FC<Props> = ({
           <div className="height-weight">
             <Input
               label="Altura em metros"
-              placeholder="Altura em metros"
               {...register("Height", {
                 required: "Campo obrigatório",
-                validate: (Height) =>
-                  Number(Height) ? true : "Apenas números são válidos",
+                validate: isValidNumber,
               })}
               error={errors.Height?.message}
             />
             <Input
               label="Peso em kg"
-              placeholder="Peso em kg"
               {...register("Weigth", {
                 required: "Campo obrigatório",
-                validate: (height) =>
-                  Number(height) ? true : "Apenas números são válidos",
+                validate: isValidNumber,
               })}
               error={errors.Weigth?.message}
             />

@@ -9,16 +9,12 @@ import { toast } from "react-toastify";
 import { useAuthContext } from "@/contexts/Auth";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "@/components/Spinner";
+import { isValidEmail } from "@/utils/isValidEmail";
 
 interface FormData {
   username: string;
   password: string;
 }
-
-const isValidEmail = (email: string) =>
-  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-    email
-  );
 
 export const Login: React.FC = () => {
   const {
@@ -52,9 +48,6 @@ export const Login: React.FC = () => {
     }
   });
 
-  const handleUserValidation = (username: string) =>
-    isValidEmail(username) || "Usuário deve ser um email válido";
-
   return (
     <LoginContainer>
       <Spinner loading={loading} color="dark" />
@@ -67,7 +60,7 @@ export const Login: React.FC = () => {
           type="text"
           {...register("username", {
             required: "Campo obrigatório",
-            validate: handleUserValidation,
+            validate: isValidEmail,
           })}
           error={errors.username?.message}
         />
