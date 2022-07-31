@@ -19,7 +19,7 @@ export const LoginContainer = styled.main`
   }
 
   .input {
-    margin: 10px 0;
+    margin: 1.275em 0;
   }
 
   .submit {

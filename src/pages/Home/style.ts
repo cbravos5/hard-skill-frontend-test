@@ -58,7 +58,7 @@ export const HomeData = styled.main`
   text-align: center;
   .people-tiles {
     overflow-y: scroll;
-    height: 70vh;
+    height: 60vh;
     display: grid;
     justify-content: center;
     row-gap: 1em;

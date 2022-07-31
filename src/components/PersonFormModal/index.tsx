@@ -127,6 +127,7 @@ export const PersonFormModal: React.FC<Props> = ({
         >
           <Spinner loading={loading} color="dark" />
           <Input
+            label="Nome"
             type="text"
             placeholder="Nome"
             {...register("Name", {
@@ -135,6 +136,7 @@ export const PersonFormModal: React.FC<Props> = ({
             error={errors.Name?.message}
           />
           <Input
+            label="Sobrenome"
             type="text"
             placeholder="Sobrenome"
             {...register("Surname", {
@@ -143,6 +145,7 @@ export const PersonFormModal: React.FC<Props> = ({
             error={errors.Surname?.message}
           />
           <Input
+            label="Data de nascimento"
             type="text"
             placeholder="Data de Nascimento"
             {...register("DateOfBirth", {
@@ -155,10 +158,13 @@ export const PersonFormModal: React.FC<Props> = ({
             })}
             error={errors.DateOfBirth?.message}
             onFocus={(e) => (e.target.type = "date")}
-            onBlur={(e) => (e.target.type = "date")}
+            onBlur={(e) => {
+              if (!e.target.value) e.target.type = "text";
+            }}
           />
           <div className="height-weight">
             <Input
+              label="Altura em metros"
               placeholder="Altura em metros"
               {...register("Height", {
                 required: "Campo obrigatório",
@@ -168,6 +174,7 @@ export const PersonFormModal: React.FC<Props> = ({
               error={errors.Height?.message}
             />
             <Input
+              label="Peso em kg"
               placeholder="Peso em kg"
               {...register("Weigth", {
                 required: "Campo obrigatório",

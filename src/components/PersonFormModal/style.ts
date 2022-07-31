@@ -19,12 +19,16 @@ export const ContentContainer = styled.div`
     justify-content: center;
     justify-items: center;
     flex-direction: column;
-    gap: 1em;
+    gap: 1.3em;
 
     padding: 0 25%;
 
     input {
       width: 100%;
+    }
+
+    input[type="date"]:focus::placeholder {
+      color: transparent;
     }
   }
 

@@ -37,6 +37,7 @@ export default createGlobalStyle`
     display: grid;
     justify-items: center;
     align-items: center;
+    overflow: hidden;
   }
 
   .react-confirm-alert-overlay {

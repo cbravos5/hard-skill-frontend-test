@@ -62,9 +62,9 @@ export const Login: React.FC = () => {
       <p>Sistema de gerência de pessoas</p>
       <form action="login" onSubmit={submitHandler}>
         <Input
+          label="Usuário"
           className="input"
           type="text"
-          placeholder="Usuário"
           {...register("username", {
             required: "Campo obrigatório",
             validate: handleUserValidation,
@@ -72,9 +72,9 @@ export const Login: React.FC = () => {
           error={errors.username?.message}
         />
         <Input
+          label="Senha"
           className="input"
           type="password"
-          placeholder="Senha"
           {...register("password", {
             required: { value: true, message: "Campo obrigatório" },
           })}

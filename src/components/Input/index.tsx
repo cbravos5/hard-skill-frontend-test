@@ -3,13 +3,22 @@ import { InputStyle } from "./style";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   error: string | undefined;
+  label: string;
 }
 
 export const Input = forwardRef<HTMLInputElement, Props>(
-  ({ error, className, ...rest }, ref) => (
+  ({ error, className, label, ...rest }, ref) => (
     <InputStyle className={className}>
-      <input className={error ? "error" : ""} {...rest} ref={ref} />
-      {error && <span>{error}</span>}
+      <label className="input">
+        <input
+          className={`input__field ${error ? "error" : ""}`}
+          {...rest}
+          ref={ref}
+          placeholder="  "
+        />
+        <span className="input__label">{label}</span>
+      </label>
+      {error && <span className="span-error">{error}</span>}
     </InputStyle>
   )
 );

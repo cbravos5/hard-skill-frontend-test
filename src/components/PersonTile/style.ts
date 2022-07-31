@@ -44,6 +44,7 @@ export const TileStyle = styled.div`
     padding: 0.3em 0.8em;
     display: block;
     width: 100%;
+    cursor: pointer;
   }
 
   .edit {
