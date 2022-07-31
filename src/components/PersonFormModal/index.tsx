@@ -9,12 +9,14 @@ import { AxiosInstance } from "@/configs/axiosConfig";
 import { Person } from "@/interfaces/Person";
 import { toast } from "react-toastify";
 import { Spinner } from "../Spinner";
+import { FaEdit, FaPlusCircle } from "react-icons/fa";
+import { PersonIMC } from "@/interfaces/PersonIMC";
 
 interface Props {
   closeModal: () => void;
   addNewPerson: (person: Person) => void;
   editPerson: (person: Person) => void;
-  id?: string;
+  person?: PersonIMC;
 }
 
 interface FormData {
@@ -29,7 +31,7 @@ export const PersonFormModal: React.FC<Props> = ({
   closeModal,
   addNewPerson,
   editPerson,
-  id,
+  person,
 }) => {
   const {
     register,
@@ -41,11 +43,11 @@ export const PersonFormModal: React.FC<Props> = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) {
+    if (!person) {
       setLoading(false);
       return;
     }
-    AxiosInstance.get(`/People/${id}`)
+    AxiosInstance.get(`/People/${person.Id}`)
       .then((response) => {
         const date = new Date(response.data.DateOfBirth).toLocaleDateString();
         reset({
@@ -75,7 +77,7 @@ export const PersonFormModal: React.FC<Props> = ({
 
   const submitEditHandler = handleSubmit(async (submitData) => {
     try {
-      const response = await AxiosInstance.put(`/People/${id}`, {
+      const response = await AxiosInstance.put(`/People/${person?.Id}`, {
         name: submitData.Name,
         surname: submitData.Surname,
         weigth: submitData.Weigth,
@@ -121,9 +123,21 @@ export const PersonFormModal: React.FC<Props> = ({
         <button className="close" type="button" onClick={closeModal}>
           <AiFillCloseCircle size={25} />
         </button>
+        <div className={`action-info ${loading ? "invisible" : ""}`}>
+          <div className="icon">
+            {person?.Id ? <FaEdit /> : <FaPlusCircle />}
+          </div>
+          <div className="description">
+            <p>
+              {person?.Id
+                ? `Você está editando ${person?.FullName}`
+                : "Você está cadastrando uma nova pessoa"}
+            </p>
+          </div>
+        </div>
         <form
           action="insert"
-          onSubmit={id ? submitEditHandler : submitAddHandler}
+          onSubmit={person?.Id ? submitEditHandler : submitAddHandler}
         >
           <Spinner loading={loading} color="dark" />
           <Input

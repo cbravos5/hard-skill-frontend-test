@@ -24,7 +24,7 @@ export const Home = () => {
   const [peopleIMCShow, setPeopleIMCShow] = useState([] as PersonIMC[]);
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [openPersonId, setOpenPersonId] = useState("");
+  const [openPerson, setOpenPerson] = useState<PersonIMC>();
   const [searchTerm, setSearchTerm] = useState("");
   const { setAuth } = useAuthContext();
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
@@ -71,8 +71,8 @@ export const Home = () => {
       });
   };
 
-  const openEdit = (id: string) => {
-    setOpenPersonId(id);
+  const openEdit = (person: PersonIMC) => {
+    setOpenPerson(person);
     setAddModalIsOpen(true);
   };
 
@@ -157,11 +157,11 @@ export const Home = () => {
         <PersonFormModal
           closeModal={() => {
             setAddModalIsOpen(false);
-            setOpenPersonId("");
+            setOpenPerson(undefined);
           }}
           addNewPerson={addNewPerson}
           editPerson={editPerson}
-          id={openPersonId}
+          person={openPerson}
         />
       )}
     </>

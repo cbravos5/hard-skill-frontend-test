@@ -6,7 +6,7 @@ import { TileStyle } from "./style";
 interface Props {
   personData: PersonIMC;
   deletePerson: (id: string) => void;
-  openEdit: (id: string) => void;
+  openEdit: (person: PersonIMC) => void;
 }
 
 export const PersonTile: React.FC<Props> = ({
@@ -48,7 +48,7 @@ export const PersonTile: React.FC<Props> = ({
         <button
           type="button"
           className="edit"
-          onClick={() => openEdit(personData.Id)}
+          onClick={() => openEdit(personData)}
         >
           <FaEdit /> <span>Alterar</span>
         </button>

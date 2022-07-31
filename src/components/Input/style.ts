@@ -39,7 +39,7 @@ export const InputStyle = styled.div`
       &:focus,
       &:not(:placeholder-shown) {
         & + .input__label {
-          transform: translate(0, -110%) scale(0.8);
+          transform: translate(0, -100%) scale(0.8);
           color: ${({ theme }) => theme.primary};
         }
       }

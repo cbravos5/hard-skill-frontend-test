@@ -23,7 +23,7 @@ export const Container = styled.div`
   margin-right: -50%;
   transform: translate(-50%, -50%);
   width: 50%;
-  height: 50%;
+  height: 70%;
 
   color: rgba(0, 0, 139, 0.7);
 
