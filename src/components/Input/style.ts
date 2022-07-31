@@ -22,7 +22,7 @@ export const InputStyle = styled.div`
     position: relative;
 
     &__label {
-      color: black;
+      color: #00000088;
       position: absolute;
       left: 0;
       top: 0;

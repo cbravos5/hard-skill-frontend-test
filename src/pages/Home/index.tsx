@@ -11,13 +11,22 @@ import { toast } from "react-toastify";
 import { Spinner } from "@/components/Spinner";
 import { useAuthContext } from "@/contexts/Auth";
 import { confirmPopUp } from "@/utils/confirmPopUp";
+import { useDebounce } from "@/hooks/useDebounce";
+
+const filterPeople = (searchString: string, peopleArray: PersonIMC[]) =>
+  peopleArray.filter(({ FullName }) =>
+    FullName.toLowerCase().includes(searchString.toLowerCase())
+  );
 
 export const Home = () => {
   const [peopleIMC, setPeopleIMC] = useState([] as PersonIMC[]);
+  const [peopleIMCShow, setPeopleIMCShow] = useState([] as PersonIMC[]);
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [openPersonId, setOpenPersonId] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const { setAuth } = useAuthContext();
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   const addNewPerson = (person: Person) => {
     AxiosInstance.get(`/People/${person.Id}/IMC`)
@@ -78,6 +87,7 @@ export const Home = () => {
     AxiosInstance.get("/People/IMC")
       .then((response) => {
         setPeopleIMC(response.data);
+        setPeopleIMCShow(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -85,6 +95,18 @@ export const Home = () => {
         toast.error("Erro ao buscar dados do servidor");
       });
   }, []);
+
+  useEffect(
+    () => {
+      if (debouncedSearchTerm) {
+        const filteredPeople = filterPeople(searchTerm, peopleIMC);
+        setPeopleIMCShow(filteredPeople);
+      } else {
+        setPeopleIMCShow(peopleIMC);
+      }
+    },
+    [debouncedSearchTerm] // Only call effect if debounced search term changes
+  );
 
   return (
     <>
@@ -105,11 +127,18 @@ export const Home = () => {
             Incluir
           </button>
         </div>
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Filtrar por nome"
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
         {loading ? (
           <Spinner loading={true} color="dark" />
         ) : (
           <section className="people-tiles">
-            {peopleIMC.map((personData) => (
+            {peopleIMCShow.map((personData) => (
               <PersonTile
                 personData={personData}
                 key={personData.Id}

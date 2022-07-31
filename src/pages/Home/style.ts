@@ -59,8 +59,10 @@ export const HomeData = styled.main`
   .people-tiles {
     overflow-y: scroll;
     height: 60vh;
-    display: grid;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: stretch;
     row-gap: 1em;
     padding: 0 4em 4em 4em;
     margin-top: 4em;
@@ -71,7 +73,7 @@ export const HomeData = styled.main`
     border: none;
     border-radius: 0.8rem;
 
-    background: #6cd982;
+    background: #209403;
 
     color: white;
 
@@ -80,13 +82,23 @@ export const HomeData = styled.main`
     user-select: none;
     text-align: center;
     text-decoration: none;
-    transition-duration: 0.4s;
+    transition-duration: 0.1s;
+
+    &:hover {
+      background: #0c3801;
+    }
+
+    &:focus {
+      background: #209403;
+      outline: 1px solid #209403;
+    }
   }
 
   @media screen and (max-width: 600px) {
     padding: 0;
     .people-tiles {
       overflow-x: hidden;
+      padding: 0 0.5em;
     }
   }
 `;
