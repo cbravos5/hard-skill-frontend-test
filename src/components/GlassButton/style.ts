@@ -1,11 +1,16 @@
 import styled from "styled-components";
 
-export const GlassButtonStyle = styled.button`
+interface Props {
+  color: string;
+  hoverColor: string;
+}
+
+export const GlassButtonStyle = styled.button<Props>`
   background-color: ${({ theme }) => theme.tertiary};
   border-radius: 3px;
-  border: 1px solid ${({ theme }) => theme.primary};
+  border: 1px solid ${({ theme, color }) => color || theme.primary};
   box-shadow: rgba(255, 255, 255, 0.7) 0 1px 0 0 inset;
-  color: #39739d;
+  color: ${({ color }) => color};
   cursor: pointer;
   padding: 8px 0.8em;
   text-align: center;
@@ -18,17 +23,17 @@ export const GlassButtonStyle = styled.button`
 
   &:hover,
   &:focus {
-    background-color: ${({ theme }) => theme.secondary};
-    color: #2c5777;
+    background-color: ${({ hoverColor }) => `${hoverColor}26`};
+    color: ${({ hoverColor }) => hoverColor};
   }
 
   &:focus {
-    box-shadow: 0 0 0 4px rgba(0, 149, 255, 0.15);
+    box-shadow: 0 0 0 4px ${({ hoverColor }) => `${hoverColor}26`};
   }
 
   &:active {
-    background-color: #a0c7e4;
+    background-color: ${({ hoverColor }) => `${hoverColor}33`};
     box-shadow: none;
-    color: #2c5777;
+    color: ${({ hoverColor }) => hoverColor};
   }
 `;
