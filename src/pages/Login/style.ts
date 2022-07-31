@@ -22,6 +22,10 @@ export const LoginContainer = styled.main`
     margin: 1.275em 0;
   }
 
+  button {
+    font-size: 0.9em;
+  }
+
   .submit {
     display: block;
     margin: auto;

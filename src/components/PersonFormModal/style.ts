@@ -42,6 +42,16 @@ export const ContentContainer = styled.div`
     }
   }
 
+  .buttons {
+    width: 100%;
+    text-align: center;
+    margin-top: 1em;
+    button {
+      width: 30%;
+      margin: 0 0.875em;
+    }
+  }
+
   @media screen and (max-width: 600px) {
     form {
       padding: 0 15%;

@@ -184,9 +184,20 @@ export const PersonFormModal: React.FC<Props> = ({
               error={errors.Weigth?.message}
             />
           </div>
-          <div>
-            <GlassButton type="button" label="Cancelar" />
-            <GlassButton type="submit" label="Salvar" />
+          <div className="buttons">
+            <GlassButton
+              type="button"
+              label="Cancelar"
+              color="#fc4635"
+              hoverColor="#e02312"
+              onClick={closeModal}
+            />
+            <GlassButton
+              type="submit"
+              label="Salvar"
+              color="#209403"
+              hoverColor="#0c3801"
+            />
           </div>
         </form>
       </ContentContainer>
