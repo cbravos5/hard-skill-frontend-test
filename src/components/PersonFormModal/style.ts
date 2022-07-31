@@ -40,7 +40,7 @@ export const ContentContainer = styled.div`
     font-size: 0.875rem;
     padding: 5px 1em;
     margin-bottom: 2em;
-    transition: all 0.3s;
+    transition: opacity 0.3s;
     text-align: center;
     max-width: 80%;
 
@@ -66,6 +66,7 @@ export const ContentContainer = styled.div`
     gap: 1.3rem;
 
     padding: 0 25%;
+    transition: opacity 0.3s;
 
     input {
       width: 100%;

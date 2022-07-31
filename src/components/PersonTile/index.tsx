@@ -33,7 +33,7 @@ export const PersonTile: React.FC<Props> = ({
           Idade: <span>{personData.Age} anos</span>
         </p>
         <p>
-          Altura: <span>{personData.Height}cm</span>
+          Altura: <span>{personData.Height}m</span>
         </p>
       </div>
       <div className="data-column">

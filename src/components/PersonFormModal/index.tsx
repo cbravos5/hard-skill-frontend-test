@@ -138,6 +138,7 @@ export const PersonFormModal: React.FC<Props> = ({
         <form
           action="insert"
           onSubmit={person?.Id ? submitEditHandler : submitAddHandler}
+          className={loading ? "invisible" : ""}
         >
           <Spinner loading={loading} color="dark" />
           <Input

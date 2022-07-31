@@ -88,7 +88,6 @@ export const Home = () => {
     AxiosInstance.get("/People/IMC")
       .then((response) => {
         setPeopleIMC(response.data);
-        setPeopleIMCShow(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -108,6 +107,11 @@ export const Home = () => {
     },
     [debouncedSearchTerm] // Only call effect if debounced search term changes
   );
+
+  useEffect(() => {
+    setPeopleIMCShow(peopleIMC);
+    console.log("salve");
+  }, [peopleIMC]);
 
   return (
     <>
